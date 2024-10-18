@@ -1,0 +1,48 @@
+{
+  "name": "weatherdataproviderlambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint .",
+    "format": "eslint --fix .",
+    "prebuild": "npm run format",
+    "generate": "cd ../ && ./gradlew :WeatherDataProviderLambdaModel:build",
+    "build:client": "cd ../WeatherDataProviderLambdaModel/build/smithyprojections/WeatherDataProviderLambdaModel/typescript-client/typescript-codegen && yarn install && yarn build",
+    "build": "yarn generate && yarn build:client && tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.12.0",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.6",
+    "@types/webpack": "^5.28.5",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.10.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^12.0.2",
+    "declaration-bundler-webpack-plugin": "^1.0.3",
+    "eslint": "^9.12.0",
+    "express": "^4.21.1",
+    "jest": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "webpack": "^5.95.0",
+    "wepack-cli": "^0.0.1-security"
+  },
+  "dependencies": {
+    "@myasir/aurora-weather-data-provider": "0.0.1"
+  },
+  "private": true,
+  "workspaces": [
+    "../WeatherDataProviderLambdaModel/build/smithyprojections/WeatherDataProviderLambdaModel/typescript-client/typescript-codegen"
+  ]
+}

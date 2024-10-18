@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e232de97-ad92-4628-9b6b-046c4e4a189f" name="Changes" comment="">
+    <list default="true" id="e232de97-ad92-4628-9b6b-046c4e4a189f" name="Changes" comment="Initial commit with basic working gRPC server and with protobuf definitions">
       <change afterPath="$PROJECT_DIR$/AuroraWeatherServiceInterface/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WeatherDataProviderLambdaModel/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WeatherDataProviderLambdaModel/smithy-build.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WeatherDataProviderLambdaModel/src/main/smithy/main.smithy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeatherDataProviderLambda/eslint.config.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeatherDataProviderLambda/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeatherDataProviderLambda/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeatherDataProviderLambda/src/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeatherDataProviderLambda/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +58,8 @@
       <list>
         <option value="Kotlin Class" />
         <option value="Default" />
+        <option value="tsconfig.json" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -76,35 +79,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Default.smithy&quot;: &quot;Default&quot;,
-    &quot;Gradle.AuroraWeatherService [smithyBuild].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build AuroraWeatherService.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build AuroraWeatherServiceInterface.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build aurora-weather-service.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.AuroraWeatherServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-17&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/yasir/workplace/aurora-weather-service&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Default.smithy": "Default",
+    "Gradle.AuroraWeatherService [smithyBuild].executor": "Run",
+    "Gradle.Build AuroraWeatherService.executor": "Run",
+    "Gradle.Build AuroraWeatherServiceInterface.executor": "Run",
+    "Gradle.Build aurora-weather-service.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.AuroraWeatherServiceApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "openjdk-17",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/yasir/workplace/aurora-weather-service/WeatherDataProviderLambda",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "settings.typescriptcompiler",
+    "ts.external.directory.path": "/Users/yasir/.nvm/versions/node/v16.16.0/lib/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/WeatherDataProviderLambda" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/AuroraWeatherServiceInterface" />
     </key>
@@ -179,7 +183,7 @@
       <workItem from="1729054659035" duration="862000" />
       <workItem from="1729055557086" duration="8507000" />
       <workItem from="1729215795142" duration="525000" />
-      <workItem from="1729216446694" duration="2978000" />
+      <workItem from="1729216446694" duration="7083000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit with basic working gRPC server and with protobuf definitions">
       <option name="closed" value="true" />
@@ -189,13 +193,22 @@
       <option name="project" value="LOCAL" />
       <updated>1729127816926</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added Model package and configured it to generate OpenAPI specification and TypeScript model files">
+      <option name="closed" value="true" />
+      <created>1729219613651</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729219613651</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added Model package and configured it to generate OpenAPI specification and TypeScript model files" />
     <MESSAGE value="Initial commit with basic working gRPC server and with protobuf definitions" />
     <option name="LAST_COMMIT_MESSAGE" value="Initial commit with basic working gRPC server and with protobuf definitions" />
   </component>
