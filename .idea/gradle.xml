@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/AuroraWeatherService" />
             <option value="$PROJECT_DIR$/AuroraWeatherServiceInterface" />
+            <option value="$PROJECT_DIR$/WeatherDataProviderLambdaModel" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -21,6 +22,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/AuroraWeatherService" />
             <option value="$PROJECT_DIR$/AuroraWeatherServiceInterface" />
+            <option value="$PROJECT_DIR$/WeatherDataProviderLambdaModel" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -32,6 +34,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/AuroraWeatherService" />
             <option value="$PROJECT_DIR$/AuroraWeatherServiceInterface" />
+            <option value="$PROJECT_DIR$/WeatherDataProviderLambdaModel" />
           </set>
         </option>
       </GradleProjectSettings>
