@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "ES6",
     "module": "commonjs",
     "noImplicitAny": true,
     "removeComments": true,
@@ -8,7 +9,11 @@
     "declaration": true,
     "moduleResolution": "node",
     "outDir": "./dist",
-    "rootDir": "."
+    "rootDir": ".",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
   },
   "include": ["src"]
 }

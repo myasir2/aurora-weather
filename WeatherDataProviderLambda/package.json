@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "ts-node dev_server.ts",
     "test": "jest",
     "lint": "eslint .",
     "format": "eslint --fix .",
@@ -41,7 +42,10 @@
     "wepack-cli": "^0.0.1-security"
   },
   "dependencies": {
-    "@myasir/aurora-weather-data-provider": "0.0.1"
+    "@myasir/aurora-weather-data-provider": "0.0.1",
+    "class-transformer": "^0.5.1",
+    "dotenv": "^16.4.5",
+    "reflect-metadata": "^0.2.2"
   },
   "private": true,
   "workspaces": [
