@@ -1,4 +1,4 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 import * as dotenv from "dotenv"
 import { GetWeatherDataRequest } from "@myasir/aurora-weather-data-provider"
 import {WeatherApiDao} from "./dao/weather_api_dao";

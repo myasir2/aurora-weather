@@ -2,7 +2,6 @@ import {IWeatherDataProvider, NUM_FORECAST_DAYS} from "./index";
 import {BaseWeatherData, WeatherInformation} from "../model/weather_information";
 import {plainToInstance} from "class-transformer";
 import {XWeatherData} from "../model/provider/x_weather_data";
-import {WeatherApiData} from "../model/provider/weather_api_data";
 
 const BASE_URL = "https://data.api.xweather.com/forecasts"
 
@@ -34,7 +33,7 @@ export class XWeatherDao implements IWeatherDataProvider {
         }
 
         const data = await response.json();
-        const xWeatherData = plainToInstance(XWeatherData, data as Object)
+        const xWeatherData = plainToInstance(XWeatherData, data as object)
         const weatherInformation = this.convertToWeatherInformation(xWeatherData)
 
         return Promise.resolve(weatherInformation)

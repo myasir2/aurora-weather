@@ -1,4 +1,4 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 import {WeatherApiDao} from "../../src/dao/weather_api_dao";
 import {enableFetchMocks} from "jest-fetch-mock";
 import {
@@ -22,8 +22,8 @@ const TEST_MOCKED_RESPONSE = {
         uv: TEST_UV,
         vis_km: TEST_VISIBILITY,
         condition: {
-            icon: TEST_WEATHER_ICON_URL
-        }
+            icon: TEST_WEATHER_ICON_URL,
+        },
     },
     forecast: {
         forecastday: [
@@ -38,9 +38,9 @@ const TEST_MOCKED_RESPONSE = {
                     avghumidity: TEST_HUMIDITY,
                     uv: TEST_UV,
                     condition: {
-                        icon: TEST_WEATHER_ICON_URL
-                    }
-                }
+                        icon: TEST_WEATHER_ICON_URL,
+                    },
+                },
             },
             {
                 date: TEST_FORECAST_DAY1_DATE,
@@ -53,15 +53,15 @@ const TEST_MOCKED_RESPONSE = {
                     avghumidity: TEST_HUMIDITY,
                     uv: TEST_UV,
                     condition: {
-                        icon: TEST_WEATHER_ICON_URL
-                    }
-                }
+                        icon: TEST_WEATHER_ICON_URL,
+                    },
+                },
             }
-        ]
-    }
+        ],
+    },
 }
 
-describe('WeatherApiDao', () => {
+describe("WeatherApiDao", () => {
     let dao: WeatherApiDao;
 
     beforeAll(() => {
@@ -74,7 +74,7 @@ describe('WeatherApiDao', () => {
         dao = new WeatherApiDao(TEST_API_KEY)
     })
 
-    it('should receive a successful WeatherAPI response and parse it correctly', async () => {
+    it("should receive a successful WeatherAPI response and parse it correctly", async () => {
         fetchMock.mockReturnValue(Promise.resolve(new Response(JSON.stringify(TEST_MOCKED_RESPONSE))))
 
         const actualWeatherInfo = await dao.getData(TEST_LONGITUDE, TEST_LATITUDE)
@@ -82,7 +82,7 @@ describe('WeatherApiDao', () => {
         expect(actualWeatherInfo).toEqual(TEST_WEATHER_INFO)
     });
 
-    it('should throw an Error if WeatherAPI responds with a non-200 status code', async () => {
+    it("should throw an Error if WeatherAPI responds with a non-200 status code", async () => {
         fetchMock.mockReturnValue(Promise.reject(new Error("Something broke")))
 
         await expect(dao.getData(TEST_LONGITUDE, TEST_LATITUDE)).rejects.toThrow()

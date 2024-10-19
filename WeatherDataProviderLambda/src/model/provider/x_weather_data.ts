@@ -3,7 +3,7 @@ import {Type} from "class-transformer";
 export class XWeatherData {
 
     @Type(() => XWeatherDataResponse)
-    response: XWeatherDataResponse[]
+        response: XWeatherDataResponse[]
 
     constructor(response: XWeatherDataResponse[]) {
         this.response = response;
@@ -13,7 +13,7 @@ export class XWeatherData {
 class XWeatherDataResponse {
 
     @Type(() => XWeatherDataPeriod)
-    periods: XWeatherDataPeriod[]
+        periods: XWeatherDataPeriod[]
 
     constructor(periods: XWeatherDataPeriod[]) {
         this.periods = periods;

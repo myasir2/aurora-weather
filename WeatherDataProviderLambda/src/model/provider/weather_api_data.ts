@@ -1,5 +1,4 @@
-import {Transform, Type} from "class-transformer";
-import {dateToClass} from "../../util";
+import {Type} from "class-transformer";
 
 /**
  * This is a wrapper around the response of the WeatherAPI provider. Full details of the API's response can be found
@@ -51,7 +50,7 @@ class WeatherApiCurrent {
 class WeatherApiForecast {
 
     @Type(() => WeatherApiForecastDay)
-    forecastday: WeatherApiForecastDay[]
+        forecastday: WeatherApiForecastDay[]
 
     constructor(forecastday: WeatherApiForecastDay[]) {
         this.forecastday = forecastday;

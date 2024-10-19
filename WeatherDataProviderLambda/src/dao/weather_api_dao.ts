@@ -1,6 +1,6 @@
 import {IWeatherDataProvider, NUM_FORECAST_DAYS} from "./index";
 import {BaseWeatherData, WeatherInformation} from "../model/weather_information";
-import {plainToClass, plainToInstance} from "class-transformer";
+import {plainToInstance} from "class-transformer";
 import {WeatherApiData} from "../model/provider/weather_api_data";
 
 const BASE_URL = "https://api.weatherapi.com/v1/forecast.json"
@@ -12,7 +12,7 @@ const BASE_URL = "https://api.weatherapi.com/v1/forecast.json"
 export class WeatherApiDao implements IWeatherDataProvider {
 
     constructor(
-        private readonly apiKey = process.env.WEATHER_API_KEY,
+        private readonly apiKey = process.env.WEATHER_API_KEY
     ) {}
 
     public async getData(
@@ -31,7 +31,7 @@ export class WeatherApiDao implements IWeatherDataProvider {
         }
 
         const data = await response.json();
-        const weatherApiData = plainToInstance(WeatherApiData, data as Object)
+        const weatherApiData = plainToInstance(WeatherApiData, data as object)
         const weatherInformation = this.convertToWeatherInformation(weatherApiData)
 
         return Promise.resolve(weatherInformation)

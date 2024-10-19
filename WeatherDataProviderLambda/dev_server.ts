@@ -6,7 +6,7 @@ import {weatherApiDao, xWeatherDao} from "./src";
 const app: Express = express();
 app.use(express.json());
 
-app.post('/weather-api', async (req: Request, res: Response) => {
+app.post("/weather-api", async (req: Request, res: Response) => {
     const body = req.body;
     const longitude = body.longitude
     const latitude = body.latitude
@@ -17,7 +17,7 @@ app.post('/weather-api', async (req: Request, res: Response) => {
     res.send(information)
 });
 
-app.post('/x-weather', async (req: Request, res: Response) => {
+app.post("/x-weather", async (req: Request, res: Response) => {
     const body = req.body;
     const longitude = body.longitude
     const latitude = body.latitude

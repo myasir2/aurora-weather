@@ -1,17 +1,25 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 import {XWeatherDao} from "../../src/dao/x_weather_dao";
 import {enableFetchMocks} from "jest-fetch-mock";
 import {
-    TEST_API_KEY, TEST_API_SECRET,
+    TEST_API_KEY,
+    TEST_API_SECRET,
     TEST_CURRENT_DATE,
-    TEST_DEWPOINT, TEST_FORECAST_DAY1_DATE,
-    TEST_HUMIDITY, TEST_LATITUDE, TEST_LONGITUDE, TEST_MAX_TEMP, TEST_MIN_TEMP,
+    TEST_DEWPOINT,
+    TEST_FORECAST_DAY1_DATE,
+    TEST_HUMIDITY,
+    TEST_LATITUDE,
+    TEST_LONGITUDE,
+    TEST_MAX_TEMP,
+    TEST_MIN_TEMP,
     TEST_TEMP,
-    TEST_UV, TEST_VISIBILITY, TEST_WEATHER_ICON_URL, TEST_WEATHER_INFO,
+    TEST_UV,
+    TEST_VISIBILITY,
+    TEST_WEATHER_ICON_URL,
+    TEST_WEATHER_INFO,
     TEST_WIND_DEGREE,
     TEST_WIND_SPEED
 } from "../util/test_defaults";
-import {WeatherApiDao} from "../../src/dao/weather_api_dao";
 
 const TEST_MOCKED_RESPONSE = {
     response: [
@@ -28,7 +36,7 @@ const TEST_MOCKED_RESPONSE = {
                     windDirDEG: TEST_WIND_DEGREE,
                     uvi: TEST_UV,
                     visibilityKM: TEST_VISIBILITY,
-                    icon: TEST_WEATHER_ICON_URL
+                    icon: TEST_WEATHER_ICON_URL,
                 },
                 {
                     dateTimeISO: TEST_FORECAST_DAY1_DATE,
@@ -41,14 +49,14 @@ const TEST_MOCKED_RESPONSE = {
                     windDirDEG: 0,
                     uvi: TEST_UV,
                     visibilityKM: TEST_VISIBILITY,
-                    icon: TEST_WEATHER_ICON_URL
+                    icon: TEST_WEATHER_ICON_URL,
                 }
-            ]
+            ],
         }
-    ]
+    ],
 }
 
-describe('XWeatherDao', () => {
+describe("XWeatherDao", () => {
     let dao: XWeatherDao;
 
     beforeAll(() => {
@@ -61,7 +69,7 @@ describe('XWeatherDao', () => {
         dao = new XWeatherDao(TEST_API_KEY, TEST_API_SECRET)
     })
 
-    it('should receive a successful XWeather response and parse it correctly', async () => {
+    it("should receive a successful XWeather response and parse it correctly", async () => {
         fetchMock.mockReturnValue(Promise.resolve(new Response(JSON.stringify(TEST_MOCKED_RESPONSE))))
 
         const actualWeatherInfo = await dao.getData(TEST_LONGITUDE, TEST_LATITUDE)
@@ -69,7 +77,7 @@ describe('XWeatherDao', () => {
         expect(actualWeatherInfo).toEqual(TEST_WEATHER_INFO)
     });
 
-    it('should throw an Error if XWeather responds with a non-200 status code', async () => {
+    it("should throw an Error if XWeather responds with a non-200 status code", async () => {
         fetchMock.mockReturnValue(Promise.reject(new Error("Something broke")))
 
         await expect(dao.getData(TEST_LONGITUDE, TEST_LATITUDE)).rejects.toThrow()
