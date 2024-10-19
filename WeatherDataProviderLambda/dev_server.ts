@@ -1,8 +1,10 @@
 import * as express from "express";
 import {Express, Request, Response} from "express";
-import {weatherApiDao, xWeatherDao} from "./src";
+import {WeatherApiDao} from "./src/dao/weather_api_dao";
+import {XWeatherDao} from "./src/dao/x_weather_dao";
 
-
+const weatherApiDao = new WeatherApiDao()
+const xWeatherDao = new XWeatherDao()
 const app: Express = express();
 app.use(express.json());
 
