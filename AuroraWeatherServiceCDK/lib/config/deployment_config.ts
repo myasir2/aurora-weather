@@ -10,8 +10,7 @@ export interface DeploymentStage {
     readonly config: DeploymentConfig
 }
 
-export interface DependencyDeploymentConfig<T> extends PartialRecord<Stage, T> {
-}
+export type DependencyDeploymentConfig<T> = PartialRecord<Stage, T>
 
 export const DEPLOYMENT_STAGES: DeploymentStage[] = [
     {
@@ -19,8 +18,8 @@ export const DEPLOYMENT_STAGES: DeploymentStage[] = [
             stage: Stage.PROD,
             env: {
                 account: "635935268016",
-                region: AwsRegion.US_EAST_1
-            }
-        }
+                region: AwsRegion.US_EAST_1,
+            },
+        },
     }
 ]

@@ -1,4 +1,4 @@
-export type PartialRecord<K extends keyof any, T> = Partial<Record<K, T>>
+export type PartialRecord<K extends keyof never, T> = Partial<Record<K, T>>
 
 export enum Stage {
     PROD = "prod"

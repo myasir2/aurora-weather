@@ -22,8 +22,8 @@ export class SecretsManagerStack extends Stack {
             secretName: getConstructId("WeatherApiKeysSecret"),
             generateSecretString: {
                 secretStringTemplate: JSON.stringify({}),
-                generateStringKey: "token"
-            }
+                generateStringKey: "token",
+            },
         })
     }
 }

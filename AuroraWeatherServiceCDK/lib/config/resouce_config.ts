@@ -9,6 +9,6 @@ export interface HostedZoneConfig {
 export const HOSTED_ZONE_CONFIG: DependencyDeploymentConfig<HostedZoneConfig> = {
     [Stage.PROD]: {
         parentZoneName: "myasir.ca",
-        zoneName: "aurora-weather-api.myasir.ca"
-    }
+        zoneName: "aurora-weather-api.myasir.ca",
+    },
 }
