@@ -31,6 +31,7 @@ export class DataProviderStack extends Stack {
         this.xWeatherApiLambda = this.createLambda(getConstructId("XWeatherApiLambda"), props)
 
         props.apiKeysSecret.grantRead(this.weatherApiLambda)
+        props.apiKeysSecret.grantRead(this.xWeatherApiLambda)
 
         this.api = new OpenApiGatewayToLambda(this, "OpenApiGatewayLambda", {
             apiDefinitionAsset: new Asset(this, "OpenApiGatewayLambdaAsset", {

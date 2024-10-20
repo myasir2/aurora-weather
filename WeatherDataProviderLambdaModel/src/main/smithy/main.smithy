@@ -44,8 +44,11 @@ operation GetXWeatherApiData {
 structure GetWeatherDataRequest {
     @required
     longitude: Double
+
     @required
     latitude: Double
+    @required
+    numForecastDays: Integer
 }
 
 structure GetWeatherDataResponse {
