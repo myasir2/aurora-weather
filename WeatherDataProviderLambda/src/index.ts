@@ -2,8 +2,9 @@ import "reflect-metadata";
 import * as dotenv from "dotenv"
 import {getSecret} from "@aws-lambda-powertools/parameters/secrets";
 import {APIGatewayProxyHandler} from "aws-lambda";
-import {XWeatherDao} from "./dao/x_weather_dao";
 import {WeatherApiDao} from "./dao/weather_api_dao";
+import {GetWeatherDataResponse, WeatherData} from "@myasir/aurora-weather-data-provider"
+import {WeatherInformation} from "./model/weather_information";
 
 dotenv.config()
 
@@ -23,17 +24,40 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     console.log(event)
 
     const weatherApiKey = apiKeys["WEATHER_API_KEY"]
-    const xWeatherApiKey = apiKeys["X_WEATHER_KEY"]
-    const xWeatherApiSecret = apiKeys["X_WEATHER_SECRET"]
+    // const xWeatherApiKey = apiKeys["X_WEATHER_KEY"]
+    // const xWeatherApiSecret = apiKeys["X_WEATHER_SECRET"]
 
     const weatherApiDao = new WeatherApiDao(weatherApiKey)
-    const xWeatherDao = new XWeatherDao(xWeatherApiKey, xWeatherApiSecret)
+    // const xWeatherDao = new XWeatherDao(xWeatherApiKey, xWeatherApiSecret)
 
     return {
         statusCode: 200,
-        body: JSON.stringify({
-            weather_api: await weatherApiDao.getData(43.6532, -79.3832),
-            x_weather_api: await xWeatherDao.getData(43.6532, -79.3832),
-        }),
+        body: JSON.stringify(convertToResponse(await weatherApiDao.getData(43.6532, -79.3832))),
     }
 }
+
+/**
+ * Convert to API gateway output model.
+ */
+const convertToResponse = (info: WeatherInformation): GetWeatherDataResponse => {
+    const data = info.forecast.map((i): WeatherData => {
+        return {
+            date: i.date,
+            temp: i.temp,
+            minTemp: i.minTemp,
+            maxTemp: i.maxTemp,
+            windSpeed: i.windSpeed,
+            windDirectionDegree: i.windDirectionDegree,
+            humidity: i.humidity,
+            dewpoint: i.dewpoint,
+            uv: i.uv,
+            visibility: i.visibility,
+            weatherIconUrl: i.weatherIconUrl,
+        }
+    })
+
+    return {
+        forecast: data,
+    }
+}
+

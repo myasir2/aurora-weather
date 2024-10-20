@@ -10,7 +10,7 @@
     "format": "eslint --fix .",
     "prebuild": "npm run format",
     "generate": "cd ../ && ./gradlew :WeatherDataProviderLambdaModel:build",
-    "build:client": "cd ../WeatherDataProviderLambdaModel/build/smithyprojections/WeatherDataProviderLambdaModel/typescript-client/typescript-codegen && yarn install && yarn build",
+    "build:client": "cd ../WeatherDataProviderLambdaModel/build/output/source/typescript-codegen && yarn install && yarn build",
     "build": "yarn generate && yarn build:client && tsc && esbuild \"dist/src/**/*.js\" --bundle --minify --platform=node --target=node18 --outdir=dist dist/src/index.js",
     "export": "npm run build && cd dist && zip index.js.zip index.js"
   },
@@ -26,7 +26,6 @@
     "@types/node": "^22.7.6",
     "@typescript-eslint/eslint-plugin": "^8.10.0",
     "@typescript-eslint/parser": "^8.10.0",
-    "@webpack-cli/generators": "^3.0.7",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "express": "^4.21.1",
@@ -47,6 +46,6 @@
   },
   "private": true,
   "workspaces": [
-    "../WeatherDataProviderLambdaModel/build/smithyprojections/WeatherDataProviderLambdaModel/typescript-client/typescript-codegen"
+    "../WeatherDataProviderLambdaModel/build/output/source/typescript-codegen"
   ]
 }
