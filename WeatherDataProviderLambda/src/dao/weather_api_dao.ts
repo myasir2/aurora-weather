@@ -1,4 +1,4 @@
-import {IWeatherDataProvider, NUM_FORECAST_DAYS} from "./index";
+import {IWeatherDataProvider} from "./index";
 import {BaseWeatherData, WeatherInformation} from "../model/weather_information";
 import {plainToInstance} from "class-transformer";
 import {WeatherApiData} from "../model/provider/weather_api_data";
@@ -18,11 +18,14 @@ export class WeatherApiDao implements IWeatherDataProvider {
     public async getData(
         longitude: number,
         latitude: number,
-        numForecastDays: number = NUM_FORECAST_DAYS
+        numForecastDays: number
     ): Promise<WeatherInformation> {
         const query = `${longitude},${latitude}`
-        const url = `${BASE_URL}?key=${this.apiKey}&q=${query}&days=${numForecastDays}`
-        const response = await fetch(url)
+        const url = `${BASE_URL}?q=${query}&days=${numForecastDays}`
+
+        console.log(`Fetching WeatherAPI with url: ${url}`)
+
+        const response = await fetch(url + `&key=${this.apiKey}`)
 
         if(!response.ok) {
             console.error(`Error while querying WeatherAPI with url: ${url} => HTTP [${response.status}]`)
@@ -31,6 +34,9 @@ export class WeatherApiDao implements IWeatherDataProvider {
         }
 
         const data = await response.json();
+
+        console.log(`Fetched data: ${JSON.stringify(data)}`)
+
         const weatherApiData = plainToInstance(WeatherApiData, data as object)
         const weatherInformation = this.convertToWeatherInformation(weatherApiData)
 

@@ -12,6 +12,7 @@ import {
     TEST_LONGITUDE,
     TEST_MAX_TEMP,
     TEST_MIN_TEMP,
+    TEST_NUM_FORECAST_DAYS,
     TEST_TEMP,
     TEST_UV,
     TEST_VISIBILITY,
@@ -72,7 +73,7 @@ describe("XWeatherDao", () => {
     it("should receive a successful XWeather response and parse it correctly", async () => {
         fetchMock.mockReturnValue(Promise.resolve(new Response(JSON.stringify(TEST_MOCKED_RESPONSE))))
 
-        const actualWeatherInfo = await dao.getData(TEST_LONGITUDE, TEST_LATITUDE)
+        const actualWeatherInfo = await dao.getData(TEST_LONGITUDE, TEST_LATITUDE, TEST_NUM_FORECAST_DAYS)
 
         expect(actualWeatherInfo).toEqual(TEST_WEATHER_INFO)
     });
@@ -80,6 +81,6 @@ describe("XWeatherDao", () => {
     it("should throw an Error if XWeather responds with a non-200 status code", async () => {
         fetchMock.mockReturnValue(Promise.reject(new Error("Something broke")))
 
-        await expect(dao.getData(TEST_LONGITUDE, TEST_LATITUDE)).rejects.toThrow()
+        await expect(dao.getData(TEST_LONGITUDE, TEST_LATITUDE, TEST_NUM_FORECAST_DAYS)).rejects.toThrow()
     });
 });

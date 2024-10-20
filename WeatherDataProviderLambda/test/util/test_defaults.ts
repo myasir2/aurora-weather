@@ -1,5 +1,6 @@
 import {BaseWeatherData, WeatherInformation} from "../../src/model/weather_information";
 
+export const TEST_NUM_FORECAST_DAYS = 3
 export const TEST_LONGITUDE = 43.6532
 export const TEST_LATITUDE = -79.3832
 export const TEST_API_KEY = "apikey"

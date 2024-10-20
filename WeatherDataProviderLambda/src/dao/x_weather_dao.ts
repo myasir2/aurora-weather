@@ -1,4 +1,4 @@
-import {IWeatherDataProvider, NUM_FORECAST_DAYS} from "./index";
+import {IWeatherDataProvider} from "./index";
 import {BaseWeatherData, WeatherInformation} from "../model/weather_information";
 import {plainToInstance} from "class-transformer";
 import {XWeatherData} from "../model/provider/x_weather_data";
@@ -16,15 +16,17 @@ export class XWeatherDao implements IWeatherDataProvider {
     public async getData(
         longitude: number,
         latitude: number,
-        numForecastDays: number = NUM_FORECAST_DAYS
+        numForecastDays: number
     ): Promise<WeatherInformation> {
         // This API doesn't count today as a day. For example, for 3 days, it will return today and plus 3 days (4 days).
         // Therefore, we subtract 1 from forecast days to ensure results are consistent.
         const numDays = numForecastDays - 1
         const location = `${longitude},${latitude}`
-        const url = `${BASE_URL}/${location}?from=${new Date().toISOString()}&to=+${numDays}days&filter=24hr&client_id=${this.apiKey}&client_secret=${this.apiSecret}`
+        const url = `${BASE_URL}/${location}?from=${new Date().toISOString()}&to=+${numDays}days&filter=24hr`
 
-        const response = await fetch(url)
+        console.log(`Fetching XWeather url: ${url}`)
+
+        const response = await fetch(url + `&client_id=${this.apiKey}&client_secret=${this.apiSecret}`)
 
         if(!response.ok) {
             console.error(`Error while querying XWeather with url: ${url} => HTTP [${response.status}]`)
@@ -33,6 +35,9 @@ export class XWeatherDao implements IWeatherDataProvider {
         }
 
         const data = await response.json();
+
+        console.log(`Fetched data: ${JSON.stringify(data)}`)
+
         const xWeatherData = plainToInstance(XWeatherData, data as object)
         const weatherInformation = this.convertToWeatherInformation(xWeatherData)
 
