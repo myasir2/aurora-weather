@@ -6,19 +6,33 @@ option java_multiple_files = true;
 option java_package = "ca.myasir.auroraweatherservice.lib";
 option java_outer_classname = "AuroraWeatherServiceProto";
 
-// The greeting service definition.
-service MyService {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {
+service AuroraWeatherService {
+  rpc GetWeatherData (GetWeatherDataRequest) returns (GetWeatherDataResponse) {
   }
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+message GetWeatherDataRequest {
+  double longitude = 1;
+  double latitude = 2;
 }
 
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
+message GetWeatherDataResponse {
+  repeated WeatherData forecast = 1;
+}
+
+/**
+A struct representing the weather data for a given day
+ */
+message WeatherData {
+  string date = 1;
+  double temp = 2;
+  double minTemp = 3;
+  double maxTemp = 4;
+  double windSpeed = 5;
+  double windDirectionDegree = 6;
+  double humidity = 7;
+  double dewpoint = 8;
+  int32 uv = 9;
+  int32 visibility = 10;
+  string weatherIconUrl = 11;
 }

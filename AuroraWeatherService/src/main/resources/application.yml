@@ -1,9 +1,43 @@
 server:
   port: 8080
+  ssl:
+    enabled: true
+    key-alias: auroraweatherservice
+    key-store: classpath:keystore.p12
+    key-store-password: secret
+    key-store-type: PKCS12
+
+#grpc:
+#  server:
+#    port: 9090
+#    security:
+#      enabled: true
+#      key-store-format: PKCS12
+#      key-store-password: secret
+#      private-key: classpath:server.key
+#      certificate-chain: classpath:server.p12
 
 spring:
   application:
     name: AuroraWeatherService
+
+# In my case, there's only 1 environment in AWS. In a real world situation, we would have multiple environments
+# with their own unique configurations
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+weatherApiUrl: "https://v6f0med910.execute-api.us-east-1.amazonaws.com/prod/weather-api"
+xWeatherApiUrl: "https://v6f0med910.execute-api.us-east-1.amazonaws.com/prod/x-weather"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+weatherApiUrl: "https://v6f0med910.execute-api.us-east-1.amazonaws.com/prod/weather-api"
+xWeatherApiUrl: "https://v6f0med910.execute-api.us-east-1.amazonaws.com/prod/x-weather"
 
 logging:
   level:

@@ -1,20 +1,18 @@
 package ca.myasir.auroraweatherservice
 
-import ca.myasir.auroraweatherservice.lib.HelloReply
-import ca.myasir.auroraweatherservice.lib.HelloRequest
-import ca.myasir.auroraweatherservice.lib.MyServiceGrpc
+import ca.myasir.auroraweatherservice.lib.AuroraWeatherServiceGrpc
+import ca.myasir.auroraweatherservice.lib.GetWeatherDataRequest
+import ca.myasir.auroraweatherservice.lib.GetWeatherDataResponse
 import io.grpc.stub.StreamObserver
 import net.devh.boot.grpc.server.service.GrpcService
 
 @GrpcService
-class Service: MyServiceGrpc.MyServiceImplBase()  {
+class Service : AuroraWeatherServiceGrpc.AuroraWeatherServiceImplBase() {
 
-    override fun sayHello(request: HelloRequest, responseObserver: StreamObserver<HelloReply>) {
-        val reply = HelloReply.newBuilder()
-            .setMessage("Hello, ${request.name}")
-            .build()
-
-        responseObserver.onNext(reply)
-        responseObserver.onCompleted()
+    override fun getWeatherData(
+        request: GetWeatherDataRequest?,
+        responseObserver: StreamObserver<GetWeatherDataResponse>?
+    ) {
+        super.getWeatherData(request, responseObserver)
     }
 }
