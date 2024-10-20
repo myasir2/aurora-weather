@@ -1,24 +1,18 @@
 {
   "version": "1.0",
-  "outputDirectory" : "build/output",
-  "projections": {
-    "typescript-client": {
-      "plugins": {
-        "typescript-codegen": {
-          "service": "ca.myasir.auroraweatherservice.weatherdataprovider#WeatherDataProviderService",
-          "package": "@myasir/aurora-weather-data-provider",
-          "packageVersion": "0.0.1"
-        }
-      }
+  "outputDirectory": "build/output",
+  "plugins": {
+    "typescript-codegen": {
+      "service": "ca.myasir.auroraweatherservice.weatherdataprovider#WeatherDataProviderService",
+      "package": "@myasir/aurora-weather-data-provider",
+      "packageVersion": "0.0.1"
     },
-    "apigateway-openapi": {
-      "plugins": {
-        "openapi": {
-          "service": "ca.myasir.auroraweatherservice.weatherdataprovider#WeatherDataProviderService",
-          "outputFile": "generated/openapi/my-service-api-gateway.json",
-          "apiGateway": true
-        }
-      }
+    "openapi": {
+      "service": "ca.myasir.auroraweatherservice.weatherdataprovider#WeatherDataProviderService",
+      "protocol": "aws.protocols#restJson1",
+      "version": "3.0.2",
+      "keepUnusedComponents": true,
+      "apiGatewayType": "REST"
     }
   }
 }
