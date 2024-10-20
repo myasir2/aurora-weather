@@ -39,6 +39,10 @@ dependencies {
     implementation("software.amazon.awssdk:dynamodb-enhanced:2.20.100") // DDB support
     implementation("software.amazon.awssdk:dynamodb:2.20.100") // DDB support
     implementation("software.amazon.awssdk:location:2.20.100") // AmazonLocationService support
+    implementation("software.amazon.awssdk:auth:2.20.100")
+    implementation("software.amazon.awssdk:apache-client:2.20.100")
+    implementation("software.amazon.awssdk:core:2.20.100")
+    implementation("org.apache.httpcomponents.client5:httpclient5:5.1")
 
     // Util
     implementation("com.google.code.gson:gson:2.11.0")

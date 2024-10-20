@@ -2,6 +2,8 @@ package ca.myasir.auroraweatherservice.dao.impl
 
 import ca.myasir.auroraweatherservice.dao.LocationServiceDao
 import ca.myasir.auroraweatherservice.model.LocationResult
+import ca.myasir.auroraweatherservice.util.Latitude
+import ca.myasir.auroraweatherservice.util.Longitude
 import ca.myasir.auroraweatherservice.util.PlaceId
 import software.amazon.awssdk.services.location.LocationClient
 import software.amazon.awssdk.services.location.model.Place
@@ -29,8 +31,8 @@ class LocationServiceDaoImpl(
             LocationResult(
                 PlaceId(it.placeId()),
                 locationName,
-                coordinates[0],
-                coordinates[1]
+                Longitude(coordinates[0]),
+                Latitude(coordinates[1])
             )
         }
     }

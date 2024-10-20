@@ -6,9 +6,6 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 data class AppConfig(
 
-    @Value("\${weatherApiUrl}")
-    val weatherApiUrl: String,
-
-    @Value("\${xWeatherApiUrl}")
-    val xWeatherApiUrl: String,
+    @Value("\${numForecastDays}")
+    val numForecastDays: Int,
 )

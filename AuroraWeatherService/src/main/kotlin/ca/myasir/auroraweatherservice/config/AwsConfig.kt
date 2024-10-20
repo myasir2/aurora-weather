@@ -4,6 +4,9 @@ import ca.myasir.auroraweatherservice.logger
 import ca.myasir.auroraweatherservice.util.EnvironmentUtils
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider
+import software.amazon.awssdk.auth.signer.Aws4Signer
+import software.amazon.awssdk.auth.signer.params.Aws4SignerParams
 import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.apigateway.ApiGatewayClient
 import software.amazon.awssdk.services.location.LocationClient
@@ -32,6 +35,18 @@ class AwsConfig {
     fun getLocationClient(region: Region): LocationClient {
         return LocationClient.builder()
             .region(region)
+            .build()
+    }
+
+    @Bean
+    fun getApiGatewaySigner(): Aws4Signer = Aws4Signer.create()
+
+    @Bean
+    fun getApiGatewaySignerParams(region: Region): Aws4SignerParams {
+        return Aws4SignerParams.builder()
+            .awsCredentials(DefaultCredentialsProvider.create().resolveCredentials())
+            .signingRegion(region)
+            .signingName("execute-api")
             .build()
     }
 }

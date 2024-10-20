@@ -48,7 +48,7 @@ class LocationServiceDaoImplTest {
             .country(TEST_COUNTRY)
             .geometry(
                 PlaceGeometry.builder()
-                    .point(TEST_LONGITUDE, TEST_LATITUDE)
+                    .point(TEST_LONGITUDE.value, TEST_LATITUDE.value)
                     .build()
             )
             .build()

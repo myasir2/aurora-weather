@@ -1,5 +1,7 @@
 package ca.myasir.auroraweatherservice.model
 
+import ca.myasir.auroraweatherservice.util.Latitude
+import ca.myasir.auroraweatherservice.util.Longitude
 import ca.myasir.auroraweatherservice.util.PlaceId
 
 /**
@@ -9,6 +11,6 @@ data class LocationResult(
 
     val placeId: PlaceId,
     val locationName: String,
-    val longitude: Double,
-    val latitude: Double,
+    val longitude: Longitude,
+    val latitude: Latitude,
 )
