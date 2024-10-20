@@ -14,6 +14,7 @@ service AuroraWeatherService {
 message GetWeatherDataRequest {
   double longitude = 1;
   double latitude = 2;
+  WeatherProvider provider = 3;
 }
 
 message GetWeatherDataResponse {
@@ -35,4 +36,14 @@ message WeatherData {
   int32 uv = 9;
   int32 visibility = 10;
   string weatherIconUrl = 11;
+}
+
+/**
+Enum to represent the different weather providers. This enum values will be returned to the frontend as a list
+of available providers. DO NOT add another provider until you have confirmed the backend integration with the provider
+works as intended.
+ */
+enum WeatherProvider {
+  WEATHER_API = 0;
+  X_WEATHER = 1;
 }
