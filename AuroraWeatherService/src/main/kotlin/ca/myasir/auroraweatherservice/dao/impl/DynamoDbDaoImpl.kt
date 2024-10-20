@@ -129,7 +129,8 @@ class DynamoDbDaoImpl<T : Any>(
                 val requestLatency = System.currentTimeMillis() - requestStartTime
 
                 logger.info { "Total time took to run TransactWrite for chunk ${items.size} rows: $requestLatency milliseconds" }
-            } catch (e: TransactionCanceledException) {
+            }
+            catch (e: TransactionCanceledException) {
                 val reasons = e.cancellationReasons()
                 val schema = table.tableSchema()
                 val failedItems = reasons.mapNotNull { failedItem ->
@@ -146,7 +147,8 @@ class DynamoDbDaoImpl<T : Any>(
                     failedItems,
                     "Existing records found while updating in DDB"
                 )
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
                 logger.error { "Failed to update ${classType.simpleName} items: ${gson.toJson(items)}" }
 
                 throw e

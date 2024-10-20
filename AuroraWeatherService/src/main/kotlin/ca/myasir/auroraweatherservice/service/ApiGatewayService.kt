@@ -61,7 +61,8 @@ class ApiGatewayService(
 
                 gson.fromJson(responseBody, clazz)
             }
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             logger.error { "Error while executing POST request at $apiUrl" }
 
             throw ApiGatewayServiceException(e)

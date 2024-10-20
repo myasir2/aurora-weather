@@ -38,7 +38,8 @@ class WeatherProviderDaoImpl(
             )
 
             return response.forecast
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             logger.error { "Error occurred while getting forecast for $longitude $latitude" }
 
             throw WeatherProviderException(e)
