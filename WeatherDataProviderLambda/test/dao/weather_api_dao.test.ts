@@ -3,9 +3,9 @@ import {WeatherApiDao} from "../../src/dao/weather_api_dao";
 import {enableFetchMocks} from "jest-fetch-mock";
 import {
     TEST_API_KEY,
-    TEST_CURRENT_DATE,
+    TEST_CURRENT_DATE, TEST_CURRENT_DATE_EPOCH_SECONDS,
     TEST_DEWPOINT,
-    TEST_FORECAST_DAY1_DATE,
+    TEST_FORECAST_DAY1_DATE, TEST_FORECAST_DAY1_DATE_EPOCH_SECONDS,
     TEST_HUMIDITY,
     TEST_LATITUDE,
     TEST_LONGITUDE,
@@ -38,6 +38,7 @@ const TEST_MOCKED_RESPONSE = {
         forecastday: [
             {
                 date: TEST_CURRENT_DATE,
+                date_epoch: TEST_CURRENT_DATE_EPOCH_SECONDS,
                 day: {
                     mintemp_c: TEST_MIN_TEMP,
                     maxtemp_c: TEST_MAX_TEMP,
@@ -53,6 +54,7 @@ const TEST_MOCKED_RESPONSE = {
             },
             {
                 date: TEST_FORECAST_DAY1_DATE,
+                date_epoch: TEST_FORECAST_DAY1_DATE_EPOCH_SECONDS,
                 day: {
                     mintemp_c: TEST_MIN_TEMP,
                     maxtemp_c: TEST_MAX_TEMP,

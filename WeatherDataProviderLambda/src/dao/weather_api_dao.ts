@@ -50,7 +50,7 @@ export class WeatherApiDao implements IWeatherDataProvider {
         const weatherInfoForecast: BaseWeatherData[] = []
 
         const currentWeather = new BaseWeatherData(
-            forecastDay[0].date,
+            new Date(forecastDay[0].date_epoch * 1000).toISOString(),
             data.current.temp_c,
             currentDay.mintemp_c,
             currentDay.maxtemp_c,
@@ -70,7 +70,7 @@ export class WeatherApiDao implements IWeatherDataProvider {
             const day = f.day
 
             return new BaseWeatherData(
-                f.date,
+                new Date(f.date_epoch * 1000).toISOString(),
                 day.avgtemp_c,
                 day.mintemp_c,
                 day.maxtemp_c,

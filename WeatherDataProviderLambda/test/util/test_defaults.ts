@@ -17,6 +17,8 @@ export const TEST_VISIBILITY = 10
 export const TEST_WEATHER_ICON_URL = "icon.png"
 export const TEST_CURRENT_DATE = new Date("2024-01-01").toISOString()
 export const TEST_FORECAST_DAY1_DATE = new Date("2024-01-02").toISOString()
+export const TEST_CURRENT_DATE_EPOCH_SECONDS = 1704067200
+export const TEST_FORECAST_DAY1_DATE_EPOCH_SECONDS = 1704153600
 export const TEST_CURRENT_WEATHER = new BaseWeatherData(
     TEST_CURRENT_DATE,
     TEST_TEMP,

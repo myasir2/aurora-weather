@@ -60,10 +60,12 @@ class WeatherApiForecast {
 class WeatherApiForecastDay {
 
     date: string
+    date_epoch: number
     day: Day
 
-    constructor(date: string, day: Day) {
+    constructor(date: string, date_epoch: number, day: Day) {
         this.date = date;
+        this.date_epoch = date_epoch;
         this.day = day;
     }
 }
