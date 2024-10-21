@@ -20,7 +20,7 @@ import software.amazon.awssdk.utils.StringInputStream
 import java.net.URI
 import kotlin.test.assertEquals
 
-internal class ApiGatewayServiceTest {
+internal class ApiGatewayLocationGrpcOperationTest {
 
     private val gson = Gson()
     private val testRequestPayload = Payload("request")

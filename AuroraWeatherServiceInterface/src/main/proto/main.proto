@@ -33,8 +33,8 @@ message WeatherData {
   double windDirectionDegree = 6;
   double humidity = 7;
   double dewpoint = 8;
-  int32 uv = 9;
-  int32 visibility = 10;
+  double uv = 9;
+  double visibility = 10;
   string weatherIconUrl = 11;
 }
 
@@ -44,6 +44,7 @@ of available providers. DO NOT add another provider until you have confirmed the
 works as intended.
  */
 enum WeatherProvider {
-  WEATHER_API = 0;
-  X_WEATHER = 1;
+  NONE = 0;
+  WEATHER_API = 1;
+  X_WEATHER_API = 2;
 }

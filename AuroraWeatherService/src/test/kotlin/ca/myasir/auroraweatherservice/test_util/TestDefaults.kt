@@ -19,8 +19,8 @@ object TestDefaults {
     const val TEST_WIND_DIRECTION = 270.0
     const val TEST_HUMIDITY = 20.0
     const val TEST_DEWPOINT = 10.0
-    const val TEST_UV = 2
-    const val TEST_VISIBILITY = 10
+    const val TEST_UV = 2.0
+    const val TEST_VISIBILITY = 10.0
     const val TEST_WEATHER_ICON_URL = "icon.png"
     val TEST_PLACE_ID = PlaceId("placeId")
     val TEST_LONGITUDE = Longitude(43.6532)

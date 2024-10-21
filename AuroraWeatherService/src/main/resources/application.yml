@@ -21,8 +21,8 @@ spring:
   application:
     name: AuroraWeatherService
 
-    # The number of future days to get a forecast for all data providers. Ensure ALL data providers can support this
-    numForecastDays: 3
+# The number of future days to get a forecast for all data providers. Ensure ALL data providers can support this
+numForecastDays: 3
 
 logging:
   level:

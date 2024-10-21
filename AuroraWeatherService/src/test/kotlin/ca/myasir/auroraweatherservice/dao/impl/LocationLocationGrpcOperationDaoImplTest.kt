@@ -15,7 +15,7 @@ import software.amazon.awssdk.services.location.LocationClient
 import software.amazon.awssdk.services.location.model.*
 import kotlin.test.assertEquals
 
-class LocationServiceDaoImplTest {
+class LocationLocationGrpcOperationDaoImplTest {
 
     private val indexName = "indexName"
     private val client = mockk<LocationClient>()
