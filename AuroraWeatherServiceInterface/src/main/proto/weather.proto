@@ -15,6 +15,10 @@ message GetWeatherDataResponse {
   repeated WeatherData forecast = 1;
 }
 
+message GetWeatherProvidersResponse {
+  repeated string providers = 1;
+}
+
 /**
 A struct representing the weather data for a given day
  */

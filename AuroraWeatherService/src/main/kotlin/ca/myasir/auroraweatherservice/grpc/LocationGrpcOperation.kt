@@ -9,6 +9,7 @@ import ca.myasir.auroraweatherservice.util.GrpcWeatherProvider
 import ca.myasir.auroraweatherservice.util.Latitude
 import ca.myasir.auroraweatherservice.util.Longitude
 import ca.myasir.auroraweatherservice.util.PlaceId
+import com.google.protobuf.Empty
 import io.grpc.stub.StreamObserver
 import net.devh.boot.grpc.server.service.GrpcService
 
@@ -79,6 +80,19 @@ class LocationGrpcOperation(
         val coordinates = locationBo.getCoordinates(placeId).toGrpc()
         val response = GetLocationCoordinatesResponse.newBuilder()
             .setCoordinates(coordinates)
+            .build()
+
+        responseObserver.onNext(response)
+        responseObserver.onCompleted()
+    }
+
+    override fun getWeatherProviders(request: Empty, responseObserver: StreamObserver<GetWeatherProvidersResponse>) {
+        val providers = GrpcWeatherProvider.entries
+            .filter { it != GrpcWeatherProvider.NONE && it != GrpcWeatherProvider.UNRECOGNIZED }
+            .map(GrpcWeatherProvider::name).toList()
+
+        val response = GetWeatherProvidersResponse.newBuilder()
+            .addAllProviders(providers)
             .build()
 
         responseObserver.onNext(response)

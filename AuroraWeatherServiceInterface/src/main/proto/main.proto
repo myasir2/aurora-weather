@@ -1,6 +1,7 @@
 syntax = "proto3";
 import "weather.proto";
 import "location.proto";
+import "google/protobuf/empty.proto";
 
 package ca.myasir.auroraweatherservice.proto;
 
@@ -14,5 +15,7 @@ service AuroraWeatherService {
   rpc GetLocations (GetLocationsRequest) returns (GetLocationsResponse) {}
 
   rpc GetLocationCoordinates (GetLocationCoordinatesRequest) returns (GetLocationCoordinatesResponse) {}
+
+  rpc GetWeatherProviders (google.protobuf.Empty) returns (GetWeatherProvidersResponse) {}
 }
 

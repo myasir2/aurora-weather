@@ -16,6 +16,7 @@ import ca.myasir.auroraweatherservice.util.GrpcLocationCoordinates
 import ca.myasir.auroraweatherservice.util.GrpcLocationResult
 import ca.myasir.auroraweatherservice.util.GrpcWeatherData
 import ca.myasir.auroraweatherservice.util.GrpcWeatherProvider
+import com.google.protobuf.Empty
 import io.grpc.stub.StreamObserver
 import io.mockk.*
 import org.junit.jupiter.api.BeforeEach
@@ -144,6 +145,27 @@ internal class LocationGrpcOperationTest {
         }
         verify(exactly = 1) {
             mockedObserver.onError(any())
+        }
+    }
+
+    @Test
+    fun `it should return supported weather providers excluding NONE and UNRECOGNIZED`() {
+        val providers = listOf(GrpcWeatherProvider.WEATHER_API, GrpcWeatherProvider.X_WEATHER_API)
+            .map(GrpcWeatherProvider::name)
+        val request = Empty.newBuilder().build()
+        val response = GetWeatherProvidersResponse.newBuilder()
+            .addAllProviders(providers)
+            .build()
+        val mockedObserver: StreamObserver<GetWeatherProvidersResponse> = mockk()
+
+        justRun { mockedObserver.onNext(response) }
+        justRun { mockedObserver.onCompleted() }
+
+        operation.getWeatherProviders(request, mockedObserver)
+
+        verify(exactly = 1) {
+            mockedObserver.onNext(response)
+            mockedObserver.onCompleted()
         }
     }
 
