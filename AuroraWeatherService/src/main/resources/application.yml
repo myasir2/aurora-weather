@@ -7,15 +7,13 @@ server:
     key-store-password: secret
     key-store-type: PKCS12
 
-#grpc:
-#  server:
-#    port: 9090
-#    security:
-#      enabled: true
-#      key-store-format: PKCS12
-#      key-store-password: secret
-#      private-key: classpath:server.key
-#      certificate-chain: classpath:server.p12
+grpc:
+  server:
+    port: 9090
+    security:
+      enabled: true
+      private-key: classpath:server.key
+      certificate-chain: classpath:server.crt
 
 spring:
   application:

@@ -1,4 +1,4 @@
-import com.google.protobuf.gradle.*
+import com.google.protobuf.gradle.id
 
 plugins {
     kotlin("jvm") version "2.0.20"
@@ -24,7 +24,7 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.24.1" // Specify the version of protoc
+        artifact = "com.google.protobuf:protoc:4.28.2" // Specify the version of protoc
     }
 
     plugins {
@@ -39,14 +39,22 @@ protobuf {
                 create("kotlin")
 
                 // This section generates TypeScript code
-                create("ts") {
-                    option("import_style=commonjs") // Use CommonJS imports
-                    option("out_dir=build/generated/source/proto/main/js") // Output directory for the JS/TS files
+                id("js") {
+                    outputSubDir = "grpc-web"
+                    option("import_style=commonjs")
+                    option("binary")
+                }
+                id("ts") {
+                    outputSubDir = "js"
+                    option("ts_proto_opt=esModuleInterop=true,forceLong=string")
                 }
             }
 
             it.plugins {
                 id("grpc") {}
+                id("grpc-web") {
+                    option("mode=grpcwebtext,import_style=commonjs+dts")
+                }
             }
         }
     }

@@ -1,8 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {AuroraWeatherServiceClient} from "./proto/main_grpc_web_pb"
+import {Empty} from "google-protobuf/google/protobuf/empty_pb";
 
 function App() {
+
+    call()
+
     return (
         <div className="App">
             <header className="App-header">
@@ -16,13 +21,23 @@ function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <h1 className="text-6xl">
-                        Hello world!
-                    </h1>
+                    Learn React
                 </a>
             </header>
         </div>
     );
 }
+
+async function call() {
+    const grpcHost = 'https://localhost:9090'; // Your gRPC web service endpoint
+
+    const client = new AuroraWeatherServiceClient(grpcHost, null, null);
+    const response = client.getWeatherProviders(new Empty(), undefined, () => {
+        console.log("Error")
+    })
+
+    console.log(response);
+}
+
 
 export default App;
