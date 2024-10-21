@@ -1,13 +1,17 @@
 package ca.myasir.auroraweatherservice.dao.impl
 
 import ca.myasir.auroraweatherservice.dao.LocationServiceDao
+import ca.myasir.auroraweatherservice.exception.PlaceNotFoundException
+import ca.myasir.auroraweatherservice.logger
+import ca.myasir.auroraweatherservice.model.Coordinates
 import ca.myasir.auroraweatherservice.model.LocationResult
 import ca.myasir.auroraweatherservice.util.Latitude
 import ca.myasir.auroraweatherservice.util.Longitude
 import ca.myasir.auroraweatherservice.util.PlaceId
 import software.amazon.awssdk.services.location.LocationClient
-import software.amazon.awssdk.services.location.model.Place
-import software.amazon.awssdk.services.location.model.SearchPlaceIndexForTextRequest
+import software.amazon.awssdk.services.location.model.GetPlaceRequest
+import software.amazon.awssdk.services.location.model.ResourceNotFoundException
+import software.amazon.awssdk.services.location.model.SearchPlaceIndexForSuggestionsRequest
 
 class LocationServiceDaoImpl(
 
@@ -16,35 +20,56 @@ class LocationServiceDaoImpl(
 ) : LocationServiceDao {
 
     override fun getLocations(searchText: String): List<LocationResult> {
-        val request = SearchPlaceIndexForTextRequest.builder()
+        val request = SearchPlaceIndexForSuggestionsRequest.builder()
             .indexName(indexName)
             .text(searchText)
+            .maxResults(MAX_RESULTS)
+            .filterCategories(FILTER_CATEGORIES)
             .build()
 
-        val response = client.searchPlaceIndexForText(request)
+        val response = client.searchPlaceIndexForSuggestions(request)
 
         // No need to check for null as according to the docs, results() will never return null
-        return response.results().map {
-            val locationName = createLocationName(it.place())
-            val coordinates = it.place().geometry().point()
+        return response.results().filter { it.placeId() != null }.map {
+            val locationName = it.text()
 
             LocationResult(
                 PlaceId(it.placeId()),
                 locationName,
-                Longitude(coordinates[0]),
-                Latitude(coordinates[1])
             )
         }
     }
 
-    /**
-     * This method will create a locationName for the given Place. It will combine the city, state, and country.
-     */
-    private fun createLocationName(place: Place): String {
-        return listOf(
-            place.municipality(),
-            place.region(),
-            place.country()
-        ).joinToString(", ")
+    override fun getCoordinates(placeId: PlaceId): Coordinates {
+        val request = GetPlaceRequest.builder()
+            .indexName(indexName)
+            .placeId(placeId.value)
+            .build()
+
+        try {
+            val response = client.getPlace(request)
+            val coordinates = response.place().geometry().point()
+
+            logger.info { "Coordinates for $placeId: $coordinates" }
+
+            return Coordinates(
+                Longitude(coordinates[0]),
+                Latitude(coordinates[1]),
+            )
+        }
+        catch (e: ResourceNotFoundException) {
+            logger.error { "Place $placeId not found in ALS" }
+
+            throw PlaceNotFoundException(e)
+        }
+    }
+
+    private companion object {
+
+        // By default, the ALS API returns 5 results. 15 is a good number to show to the user
+        const val MAX_RESULTS = 15
+
+        // To ensure we only get cities/regions in the search hit results
+        val FILTER_CATEGORIES = listOf("MunicipalityType")
     }
 }

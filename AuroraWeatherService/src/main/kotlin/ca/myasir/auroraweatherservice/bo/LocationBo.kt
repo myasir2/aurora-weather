@@ -3,11 +3,13 @@ package ca.myasir.auroraweatherservice.bo
 import ca.myasir.auroraweatherservice.dao.LocationServiceDao
 import ca.myasir.auroraweatherservice.dao.WeatherProviderDao
 import ca.myasir.auroraweatherservice.logger
+import ca.myasir.auroraweatherservice.model.Coordinates
 import ca.myasir.auroraweatherservice.model.LocationResult
 import ca.myasir.auroraweatherservice.model.WeatherData
 import ca.myasir.auroraweatherservice.model.WeatherProvider
 import ca.myasir.auroraweatherservice.util.Latitude
 import ca.myasir.auroraweatherservice.util.Longitude
+import ca.myasir.auroraweatherservice.util.PlaceId
 import org.springframework.stereotype.Service
 
 /**
@@ -31,6 +33,15 @@ class LocationBo(
         logger.debug { "Searching for location: $searchText" }
 
         return locationServiceDao.getLocations(searchText)
+    }
+
+    /**
+     * Call ALS to get coordinates for the given placeId
+     */
+    fun getCoordinates(placeId: PlaceId): Coordinates {
+        logger.info { "Getting coordinates for $placeId" }
+
+        return locationServiceDao.getCoordinates(placeId)
     }
 
     /**

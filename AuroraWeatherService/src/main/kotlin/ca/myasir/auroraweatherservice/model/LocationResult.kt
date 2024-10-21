@@ -1,7 +1,6 @@
 package ca.myasir.auroraweatherservice.model
 
-import ca.myasir.auroraweatherservice.util.Latitude
-import ca.myasir.auroraweatherservice.util.Longitude
+import ca.myasir.auroraweatherservice.util.GrpcLocationResult
 import ca.myasir.auroraweatherservice.util.PlaceId
 
 /**
@@ -10,7 +9,13 @@ import ca.myasir.auroraweatherservice.util.PlaceId
 data class LocationResult(
 
     val placeId: PlaceId,
-    val locationName: String,
-    val longitude: Longitude,
-    val latitude: Latitude,
-)
+    val locationName: String
+) {
+
+    fun toGrpc(): GrpcLocationResult {
+        return GrpcLocationResult.newBuilder()
+            .setPlaceId(placeId.value)
+            .setLocationName(locationName)
+            .build()
+    }
+}

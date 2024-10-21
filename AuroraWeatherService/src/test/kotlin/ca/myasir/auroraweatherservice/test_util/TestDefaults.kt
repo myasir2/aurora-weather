@@ -1,5 +1,6 @@
 package ca.myasir.auroraweatherservice.test_util
 
+import ca.myasir.auroraweatherservice.model.Coordinates
 import ca.myasir.auroraweatherservice.model.LocationResult
 import ca.myasir.auroraweatherservice.model.WeatherData
 import ca.myasir.auroraweatherservice.util.Latitude
@@ -22,6 +23,7 @@ object TestDefaults {
     const val TEST_UV = 2.0
     const val TEST_VISIBILITY = 10.0
     const val TEST_WEATHER_ICON_URL = "icon.png"
+    const val TEST_LOCATION_LABEL = "location label"
     val TEST_PLACE_ID = PlaceId("placeId")
     val TEST_LONGITUDE = Longitude(43.6532)
     val TEST_LATITUDE = Latitude(-79.3832)
@@ -33,11 +35,12 @@ object TestDefaults {
     fun createSampleLocationResult(): LocationResult {
         return LocationResult(
             TEST_PLACE_ID,
-            listOf(
-                TEST_MUNICIPALITY,
-                TEST_REGION,
-                TEST_COUNTRY
-            ).joinToString(", "),
+            TEST_LOCATION_LABEL
+        )
+    }
+
+    fun createSampleCoordinates(): Coordinates {
+        return Coordinates(
             TEST_LONGITUDE,
             TEST_LATITUDE
         )

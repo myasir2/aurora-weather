@@ -5,6 +5,8 @@ import ca.myasir.auroraweatherservice.dao.WeatherProviderDao
 import ca.myasir.auroraweatherservice.model.WeatherProvider
 import ca.myasir.auroraweatherservice.test_util.TestDefaults.TEST_LATITUDE
 import ca.myasir.auroraweatherservice.test_util.TestDefaults.TEST_LONGITUDE
+import ca.myasir.auroraweatherservice.test_util.TestDefaults.TEST_PLACE_ID
+import ca.myasir.auroraweatherservice.test_util.TestDefaults.createSampleCoordinates
 import ca.myasir.auroraweatherservice.test_util.TestDefaults.createSampleLocationResult
 import ca.myasir.auroraweatherservice.test_util.TestDefaults.createSampleWeatherData
 import io.mockk.clearAllMocks
@@ -35,6 +37,17 @@ internal class LocationBoTest {
         val actualResults = bo.searchForLocations(testSearchText)
 
         assertEquals(expectedResults, actualResults)
+    }
+
+    @Test
+    fun `it should call ALS DAO to get coordinates for the given place id`() {
+        val expectedCoordinates = createSampleCoordinates()
+
+        every { mockedLocationServiceDao.getCoordinates(TEST_PLACE_ID) } returns expectedCoordinates
+
+        val actualCoordinates = bo.getCoordinates(TEST_PLACE_ID)
+
+        assertEquals(expectedCoordinates, actualCoordinates)
     }
 
     @Test

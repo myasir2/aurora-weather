@@ -1,14 +1,14 @@
 package ca.myasir.auroraweatherservice.grpc
 
 import ca.myasir.auroraweatherservice.bo.LocationBo
-import ca.myasir.auroraweatherservice.lib.AuroraWeatherServiceGrpc
-import ca.myasir.auroraweatherservice.lib.GetWeatherDataRequest
-import ca.myasir.auroraweatherservice.lib.GetWeatherDataResponse
+import ca.myasir.auroraweatherservice.lib.*
+import ca.myasir.auroraweatherservice.model.LocationResult
 import ca.myasir.auroraweatherservice.model.WeatherData
 import ca.myasir.auroraweatherservice.model.WeatherProvider
 import ca.myasir.auroraweatherservice.util.GrpcWeatherProvider
 import ca.myasir.auroraweatherservice.util.Latitude
 import ca.myasir.auroraweatherservice.util.Longitude
+import ca.myasir.auroraweatherservice.util.PlaceId
 import io.grpc.stub.StreamObserver
 import net.devh.boot.grpc.server.service.GrpcService
 
@@ -33,9 +33,52 @@ class LocationGrpcOperation(
         }
 
         val weatherData = locationBo.getWeatherForecast(longitude, latitude, provider)
-        val grpcWeatherData = weatherData.map(WeatherData::toGrpcWeatherData)
+        val grpcWeatherData = weatherData.map(WeatherData::toGrpc)
         val response = GetWeatherDataResponse.newBuilder()
             .addAllForecast(grpcWeatherData)
+            .build()
+
+        responseObserver.onNext(response)
+        responseObserver.onCompleted()
+    }
+
+    override fun getLocations(
+        request: GetLocationsRequest,
+        responseObserver: StreamObserver<GetLocationsResponse>
+    ) {
+        val searchText = request.searchText?.trim() ?: ""
+
+        if (searchText.isEmpty()) {
+            responseObserver.onError(IllegalArgumentException("Must provide search text for location"))
+
+            return
+        }
+
+        val locationResults = locationBo.searchForLocations(searchText)
+        val grpcLocationResults = locationResults.map(LocationResult::toGrpc)
+        val response = GetLocationsResponse.newBuilder()
+            .addAllResults(grpcLocationResults)
+            .build()
+
+        responseObserver.onNext(response)
+        responseObserver.onCompleted()
+    }
+
+    override fun getLocationCoordinates(
+        request: GetLocationCoordinatesRequest,
+        responseObserver: StreamObserver<GetLocationCoordinatesResponse>
+    ) {
+        val placeId = request.placeId?.let(::PlaceId) ?: PlaceId("")
+
+        if (placeId.value.isEmpty()) {
+            responseObserver.onError(IllegalArgumentException("Place ID must not be null"))
+
+            return
+        }
+
+        val coordinates = locationBo.getCoordinates(placeId).toGrpc()
+        val response = GetLocationCoordinatesResponse.newBuilder()
+            .setCoordinates(coordinates)
             .build()
 
         responseObserver.onNext(response)

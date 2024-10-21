@@ -20,7 +20,7 @@ data class WeatherData(
     val weatherIconUrl: String
 ) {
 
-    fun toGrpcWeatherData(): GrpcWeatherData {
+    fun toGrpc(): GrpcWeatherData {
         return GrpcWeatherData.newBuilder()
             .setDate(date.toIsoFormat())
             .setTemp(temp.value)
