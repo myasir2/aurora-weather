@@ -6,6 +6,7 @@ import {getRegionalizedName} from "./util/index";
 import {SecretsManagerStack} from "./infrastructure/base/secrets_manager_stack";
 import * as path from "path";
 import {DataProviderStack} from "./infrastructure/base/data_provider_stack";
+import {LocationServiceStack} from "./infrastructure/base/location_service_stack";
 
 const app = new cdk.App();
 
@@ -23,6 +24,11 @@ DEPLOYMENT_STAGES.forEach(deploymentStage => {
         stage,
         env,
         vpc: vpcStack.vpc,
+    })
+
+    new LocationServiceStack(app, getConstructId("LocationServiceStack"), {
+        stage,
+        env,
     })
 
     new DataProviderStack(app, getConstructId("WeatherDataProviderStack"), {
