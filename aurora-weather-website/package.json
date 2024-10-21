@@ -24,9 +24,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start:envoy": "envoy -c ./envoy.yml",
+    "start:react": "react-scripts start",
     "link-common": "node_modules/.bin/symlink-dir ../AuroraWeatherServiceInterface/build/generated/source/proto/main/grpc-web/ src/proto",
     "postinstall": "npm run link-common",
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run start:envoy\" \"npm run start:react\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -51,6 +53,7 @@
   },
   "devDependencies": {
     "@types/google-protobuf": "^3.15.12",
+    "concurrently": "^9.0.1",
     "tailwindcss": "^3.4.14"
   }
 }

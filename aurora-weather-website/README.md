@@ -6,13 +6,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### Pre-requisites
+
+Make sure you have `envoy` installed as the app proxies requests to the backend server to avoid CORS related issues.
+
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+This will run the app in development mode at http://localhost:3000. The script will also spin up the `envoy` proxy to
+proxy requests to the backend. More information about this can be found under `envoy.yml` file
 
 ### `npm test`
 

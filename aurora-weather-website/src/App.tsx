@@ -29,14 +29,16 @@ function App() {
 }
 
 async function call() {
-    const grpcHost = 'https://localhost:9090'; // Your gRPC web service endpoint
+    const grpcHost = 'http://localhost:8080'; // Your gRPC web service endpoint
 
     const client = new AuroraWeatherServiceClient(grpcHost, null, null);
-    const response = client.getWeatherProviders(new Empty(), undefined, () => {
-        console.log("Error")
+    client.getWeatherProviders(new Empty(), undefined, (err, response) => {
+        if (err) {
+            console.log(err.message);
+        } else {
+            console.log(response.getProvidersList())
+        }
     })
-
-    console.log(response);
 }
 
 
