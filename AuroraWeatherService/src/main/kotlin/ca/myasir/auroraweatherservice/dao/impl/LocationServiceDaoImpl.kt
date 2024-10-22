@@ -53,8 +53,8 @@ class LocationServiceDaoImpl(
             logger.info { "Coordinates for $placeId: $coordinates" }
 
             return Coordinates(
-                Longitude(coordinates[0]),
-                Latitude(coordinates[1]),
+                Longitude(coordinates[1]),
+                Latitude(coordinates[0]),
             )
         }
         catch (e: ResourceNotFoundException) {
