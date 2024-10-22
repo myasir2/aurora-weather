@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
     id("idea")
     id("com.google.protobuf") version "0.9.2" // Add Protobuf plugin
+    id("com.gradleup.shadow") version "8.3.3"
 }
 
 group = "ca.myasir"
@@ -28,6 +29,7 @@ dependencies {
     implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
     implementation(project(":AuroraWeatherServiceInterface"))
     implementation("org.springframework.boot:spring-boot-starter-security:3.3.4")  // For SSL/TLS
+    implementation("io.grpc:grpc-netty-shaded:1.68.0")
 
     // Logging dependencies
     implementation("ch.qos.logback:logback-classic:1.4.12")
@@ -66,3 +68,19 @@ tasks.withType<Test> {
 }
 
 tasks.register("prepareKotlinBuildScriptModel"){}
+
+tasks.named<Jar>("shadowJar") {
+    archiveBaseName.set("UberJar")
+    archiveClassifier.set("")
+    archiveVersion.set("")
+}
+
+tasks {
+    shadowJar {
+        manifest {
+            attributes(
+                "Main-Class" to "ca.myasir.auroraweatherservice.AuroraWeatherServiceApplicationKt" // Replace with your main class
+            )
+        }
+    }
+}

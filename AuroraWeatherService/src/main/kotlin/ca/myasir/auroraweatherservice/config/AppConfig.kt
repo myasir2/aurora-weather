@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 data class AppConfig(
 
-    @Value("\${numForecastDays}")
-    val numForecastDays: Int,
+    @Value("\${numForecastDays:3}")
+    var numForecastDays: Int = 3,
 )

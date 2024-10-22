@@ -6,6 +6,7 @@ import {OpenApiGatewayToLambda} from "@aws-solutions-constructs/aws-openapigatew
 import {Asset} from "aws-cdk-lib/aws-s3-assets";
 import {getRegionalizedName} from "../../util/index";
 import {Stage} from "../../types/index";
+import {Effect, Policy, PolicyStatement} from "aws-cdk-lib/aws-iam";
 
 export interface DataProviderStackProps extends StackProps {
     readonly stage: Stage
@@ -21,6 +22,9 @@ export class DataProviderStack extends Stack {
     public readonly weatherApiLambda: Function
     public readonly xWeatherApiLambda: Function
     public readonly api: OpenApiGatewayToLambda
+    public readonly weatherApiUrl: string
+    public readonly xWeatherApiUrl: string
+    public readonly executeApiPolicy: Policy
 
     public constructor(parent: App, id: string, props: DataProviderStackProps) {
         super(parent, id, props);
@@ -46,6 +50,19 @@ export class DataProviderStack extends Stack {
                     id: "XWeatherHandler",
                     existingLambdaObj: this.xWeatherApiLambda,
                 }
+            ],
+        })
+
+        this.executeApiPolicy = new Policy(this, "ExecuteApiPolicy", {
+            policyName: getConstructId("ExecuteApiPolicy"),
+            statements: [
+                new PolicyStatement({
+                    effect: Effect.ALLOW,
+                    actions: ["execute-api:Invoke"],
+                    resources: [
+                        this.api.apiGateway.arnForExecuteApi()
+                    ],
+                })
             ],
         })
     }

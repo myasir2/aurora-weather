@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  service:
+    container_name: aurora-weather-service
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: myasir/aurora-weather-service:latest
+    ports:
+      - 9090:9090
+    environment:
+      DEBUG: "true"
+      AWS_ACCESS_KEY_ID: <key>
+      AWS_REGION: us-east-1
+      AWS_SECRET_ACCESS_KEY: <key>
+      LOCATION_SERVICE_INDEX_NAME: <index-name>
+      WEATHER_API_URL: <url>
+      X_WEATHER_API_URL: <url>
