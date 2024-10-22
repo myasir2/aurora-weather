@@ -12,7 +12,7 @@ import {
 
 export default class BackendApiServiceDao {
 
-    private grpcHost = 'http://localhost:8080'; // You
+    private grpcHost = ''; // You
     private static instance: BackendApiServiceDao;
     private client = new AuroraWeatherServiceClient(this.grpcHost, null, null);
 
